@@ -1,0 +1,205 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background-color: black;
+}
+
+.scroll-down nav {
+    transform: translate3d(0, -100%, 0);
+}
+
+.scroll-up nav {
+    filter: drop-shadow(0 -10px 8px);
+}
+
+.press-start-2p-regular {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#canvas {
+    background-color: black;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+
+}
+
+#container {
+    position: absolute;
+    background: transparent;
+    height: 100svh;
+    width: 100%;
+    z-index: 100;
+}
+
+.flex-container {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    gap: 3rem;
+}
+
+#nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 20220;
+    margin: auto;
+    background: #00ffff15;
+    backdrop-filter: blur(10px);
+    transition: .5s ease-in-out;
+}
+
+#navbar {
+    min-height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    /* padding: 0rem 4rem; */
+}
+
+#navbar>li {
+    list-style: none;
+    padding: 1.5rem 0rem;
+}
+
+#navbar>li>a {
+    color: white;
+}
+
+.card {
+    z-index: 100;
+    width: 35rem;
+    height: 15rem;
+    background: transparent;
+    border: 2px solid cyan;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    /* Ensures children are in 3D space */
+    animation: rotateCard 7s linear;
+    /* Continuous rotation */
+}
+
+@keyframes rotateCard {
+    0% {
+        transform: rotateX(0deg);
+        scale: 0;
+    }
+
+    50% {
+        transform: rotateX(1260deg);
+        /* 14 turns (14 * 180deg = 2520deg) */
+    }
+
+    100% {
+        transform: rotateX(2520deg);
+        /* 28 turns */
+        scale: 1;
+    }
+}
+
+.card-content {
+    backface-visibility: hidden;
+    /* Hides the back side */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 4.5rem;
+    text-align: center;
+    color: cyan;
+}
+
+.card-back {
+    transform: rotateX(180deg);
+    /* Back side rotated */
+    background: transparent;
+    /* Different color for the back */
+
+}
+
+.description {
+    width: 70%;
+    text-align: center;
+    z-index: 100;
+    color: cyan;
+}
+
+.description>p {
+    overflow: hidden;
+}
+
+.button {
+    background: transparent;
+    outline: transparent;
+    border: 2px solid cyan;
+    height: 4rem;
+    width: 12rem;
+    color: cyan;
+    box-shadow: .5rem .5rem 0 0 cyan;
+    /* Sharp shadow */
+    transition: .5s ease-in-out;
+}
+
+.button:hover {
+    box-shadow: .2rem .2rem 0 0 cyan;
+    /* Sharp shadow */
+    /* scale: 1.1; */
+}
+
+@media screen and (max-width: 720px) {
+
+    .flex-container {
+        justify-content: flex-start;
+        padding: 3rem;
+    }
+
+    .card {
+        width: 13rem;
+        height: 6rem;
+    }
+
+    .card-content {
+        font-size: 1.5rem;
+    }
+
+    .description {
+        width: 100%;
+    }
+
+    .button {
+        height: 3rem;
+        width: 9rem;
+    }
+}
+
+@media screen and (min-width:1920px) {
+    .description>p {
+        font-size: 1.4rem;
+    }
+
+    .button {
+        height: 5rem;
+        width: 15rem;
+        font-size: 1.2rem;
+    }
+}
