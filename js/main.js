@@ -73,6 +73,7 @@ window.addEventListener('load', () => {
         guestButton.addEventListener('click', () => {
             // Add functionality for guest button here
             alert('redirecting... as guest');
+            window.location.href('https://space-gunner.netlify.app/');
         });
         
         // Create "Register" button
@@ -87,7 +88,8 @@ window.addEventListener('load', () => {
         registerButton.style.cursor = 'pointer';
         registerButton.addEventListener('click', () => {
             // Add functionality for register button here
-            alert('redirecting .... ')
+            alert('redirecting .... ');
+            window.localStorage.href('https://space-gunner.netlify.app/signup/signup');
         });
 
         // Add buttons to the card
