@@ -39,27 +39,6 @@ window.addEventListener('load', () => {
     }
     section.forEach(section => section.addEventListener('click', cancelTryNow));
 
-    function createNotification(noti)  {
-        const card = document.createElement('div');
-        card.id = 'noti-card';
-        card.style.width = '100px';
-        card.style.padding = '20px'; // Add padding
-        card.style.border = '2px solid cyan'; // Card border
-        card.style.borderRadius = '8px'; // Rounded corners
-        card.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Card shadow
-        card.style.background = '#000'; // Card background color
-        card.style.textAlign = 'center'; // Center the content
-        card.style.color = 'cyan'; // Text color
-        card.style.position = 'absolute';
-        card.style.bottom = '10px';
-        card.style.right = '10px';
-        card.innerText = noti;
-        card.style.zIndex = '400';
-
-
-        body.appendChild(card);
-    }
-
     function createOptionsHtml() {
         // Create the main card container
         const box = document.createElement('div');
@@ -93,8 +72,7 @@ window.addEventListener('load', () => {
         guestButton.style.cursor = 'pointer';
         guestButton.addEventListener('click', () => {
             // Add functionality for guest button here
-            
-            // window.location.href = 'https://space-gunner.netlify.app/';
+            window.location.href = 'https://space-gunner.netlify.app/';
         });
         
         // Create "Register" button
