@@ -1,6 +1,8 @@
-import Startup from './startup.js'
+import Startup from './startup.js';
+
 window.addEventListener('load', () => {
-    const body = document.querySelector('body')
+    const body = document.querySelector('body');
+    const section = document.querySelectorAll('.section');
     const canvas = document.querySelector('#canvas');
     const ctx = canvas.getContext('2d');
     const card = document.querySelector('.card');
@@ -13,15 +15,15 @@ window.addEventListener('load', () => {
 
     window.addEventListener('scroll', () => {
         const currentScroll = window.scrollY;
-    
+
         if (currentScroll <= 0) {
             body.classList.remove('scroll-up');
         }
-        if ( currentScroll > lastScroll && !body.classList.contains('scroll-down')) {
+        if (currentScroll > lastScroll && !body.classList.contains('scroll-down')) {
             body.classList.remove('scroll-up');
             body.classList.add('scroll-down');
         }
-        if ( currentScroll < lastScroll && body.classList.contains('scroll-down')) {
+        if (currentScroll < lastScroll && body.classList.contains('scroll-down')) {
             body.classList.remove('scroll-down');
             body.classList.add('scroll-up');
         }
@@ -29,14 +31,90 @@ window.addEventListener('load', () => {
     })
 
 
-    tryNow.addEventListener('click', handleTryNow)
+    if (tryNow) {
+        tryNow.addEventListener('click', (e) => {
+            e.stopPropagation();
+            handleTryNow();
+        });
+    }
+    section.forEach(section => section.addEventListener('click', cancelTryNow));
+
+    function createOptionsHtml() {
+        // Create the main card container
+        const box = document.createElement('div');
+        box.id = 'optionsCard';
+        box.classList.add('card-box', 'z-100'); // Add a class for styling
+        box.style.width = '300px'; // Set a width for the card
+        box.style.padding = '20px'; // Add padding
+        box.style.border = '2px solid cyan'; // Card border
+        box.style.borderRadius = '8px'; // Rounded corners
+        box.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Card shadow
+        box.style.background = '#000'; // Card background color
+        box.style.textAlign = 'center'; // Center the content
+        box.style.color = 'cyan'; // Text color
+
+        // Create the message to display in the card
+        const message = document.createElement('p');
+        message.classList.add('z-100');
+        message.textContent = 'Choose an option to continue';
+        message.style.marginBottom = '20px'; // Space between message and buttons
+        box.appendChild(message);
+
+        // Create "Continue as Guest" button
+        const guestButton = document.createElement('button');
+        guestButton.classList.add('z-100');
+        guestButton.textContent = 'Continue as Guest';
+        guestButton.style.margin = '10px';
+        guestButton.style.padding = '10px';
+        guestButton.style.background = 'transparent';
+        guestButton.style.border = '2px solid cyan';
+        guestButton.style.color = 'cyan';
+        guestButton.style.cursor = 'pointer';
+        guestButton.addEventListener('click', () => {
+            // Add functionality for guest button here
+            alert('redirecting... as guest');
+        });
+        
+        // Create "Register" button
+        const registerButton = document.createElement('button');
+        registerButton.classList.add('z-100');
+        registerButton.textContent = 'Register';
+        registerButton.style.margin = '10px';
+        registerButton.style.padding = '10px';
+        registerButton.style.background = 'cyan';
+        registerButton.style.border = '2px solid cyan';
+        registerButton.style.color = 'black';
+        registerButton.style.cursor = 'pointer';
+        registerButton.addEventListener('click', () => {
+            // Add functionality for register button here
+            alert('redirecting .... ')
+        });
+
+        // Add buttons to the card
+        box.appendChild(guestButton);
+        box.appendChild(registerButton);
+        
+        // Append the card to the body or a container
+        document.body.appendChild(box);
+    }
+    
+
 
 
     function handleTryNow() {
-        console.log('dfs')
+        createOptionsHtml();
+        section.forEach(section => section.classList.add('blur'));
+    }
+    function cancelTryNow() {
+        const card = document.querySelector('#optionsCard');
+        if (card) {
+            card.remove()  // Clears all content inside the card
+        }
+        section.forEach(section => section.classList.remove('blur'));
     }
 
-    
+
+
 
 
     const startup = new Startup(canvas, ctx);
@@ -54,17 +132,19 @@ window.addEventListener('load', () => {
         let count = 0;
         let intervalID = null;
         intervalID = setInterval(() => {
-            description.innerText = description.innerText.split('').map((letter, index) => {
-                if (index < count) {
-                    return description.dataset.value[index];
+            if (description) {
+                description.innerText = description.innerText.split('').map((letter, index) => {
+                    if (index < count) {
+                        return description.dataset.value[index];
+                    }
+                    return letters[Math.floor(Math.random() * (letters.length - 1))];
+                }).join('');
+    
+                count += 1 / 3;
+    
+                if (count >= description.dataset.value.length) {
+                    clearInterval(intervalID);
                 }
-                return letters[Math.floor(Math.random() * (letters.length - 1))];
-            }).join('');
-
-            count += 1 / 3;
-
-            if (count >= description.dataset.value.length) {
-                clearInterval(intervalID);
             }
         }, 3)
     }

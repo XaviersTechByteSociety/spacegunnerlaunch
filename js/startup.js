@@ -14,11 +14,6 @@ export default class Startup {
         this.starInterval = 10; // Adjust the interval to control star creation
         this.createStarPool();
 
-        this.mouse = {
-            x: undefined,
-            y: undefined,
-        }
-
 
         this.start();
 
